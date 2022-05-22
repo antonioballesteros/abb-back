@@ -6,10 +6,10 @@
   "scripts": {
     "tsc": "tsc",
     "init": "prisma db push",
-    "dev": "ts-node-dev --transpile-only --no-notify --exit-child src/index.ts",
+    "server": "ts-node-dev --transpile-only --no-notify --exit-child server/index.ts",
     "generate": "ts-node --transpile-only src/schema.ts",
-    "lint": "eslint src/**/*",
-    "lint-fix": "eslint src/**/* --fix",
+    "lint": "eslint server/**/*",
+    "lint-fix": "eslint server/**/* --fix",
     "test": "jest"
   },
   "keywords": [],

@@ -1,4 +1,4 @@
-import { updateLast } from './'
+import { updateLast } from '.'
 describe('testing updateLast', () => {
   test('empty updateLast not modified if no new value is received', () => {
     const prevList: number[] = []
