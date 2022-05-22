@@ -1,0 +1,32 @@
+-- CreateTable
+CREATE TABLE "Control" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "name" TEXT NOT NULL,
+    "order" INTEGER NOT NULL,
+    "nominal" REAL NOT NULL,
+    "dev1" REAL NOT NULL,
+    "dev2" REAL NOT NULL,
+    "lasts" TEXT NOT NULL DEFAULT '[]',
+    "value" REAL,
+    "featureId" INTEGER NOT NULL,
+    CONSTRAINT "Control_featureId_fkey" FOREIGN KEY ("featureId") REFERENCES "Feature" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Feature" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "name" TEXT NOT NULL,
+    "width" INTEGER NOT NULL,
+    "height" INTEGER NOT NULL,
+    "partId" INTEGER NOT NULL,
+    CONSTRAINT "Feature_partId_fkey" FOREIGN KEY ("partId") REFERENCES "Part" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Part" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "name" TEXT NOT NULL
+);
