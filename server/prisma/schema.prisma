@@ -8,7 +8,7 @@ generator client {
 }
 
 model Control {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   name      String
   order     Int
@@ -18,22 +18,22 @@ model Control {
   lasts     String   @default("[]")
   value     Float?
   feature   Feature  @relation(name: "Feature", fields: [featureId], references: [id])
-  featureId Int
+  featureId String
 }
 
 model Feature {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   name      String
   width     Int
   height    Int
   part      Part      @relation(name: "Part", fields: [partId], references: [id])
-  partId    Int
+  partId    String
   controls  Control[] @relation(name: "Feature")
 }
 
 model Part {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   name      String
   features  Feature[] @relation(name: "Part")

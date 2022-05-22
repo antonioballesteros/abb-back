@@ -149,7 +149,7 @@ export interface NexusGenArgTypes {
     addControl: { // args
       dev1: number; // Float!
       dev2: number; // Float!
-      featureId: number; // Int!
+      featureId: string; // String!
       name: string; // String!
       nominal: number; // Float!
       order: number; // Int!
@@ -157,14 +157,14 @@ export interface NexusGenArgTypes {
     addFeature: { // args
       height: number; // Int!
       name: string; // String!
-      partId: number; // Int!
+      partId: string; // String!
       width: number; // Int!
     }
     addPart: { // args
       name: string; // String!
     }
     addValue: { // args
-      id: number; // Int!
+      id: string; // String!
       value?: number | null; // Float
     }
   }

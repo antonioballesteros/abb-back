@@ -57,7 +57,7 @@ export const ControlMutation = extendType({
         nominal: nonNull(floatArg()),
         dev1: nonNull(floatArg()),
         dev2: nonNull(floatArg()),
-        featureId: nonNull(intArg()),
+        featureId: nonNull(stringArg()),
       },
 
       resolve(_, args, context) {
@@ -83,7 +83,7 @@ export const ValueMutation = extendType({
     t.nonNull.field('addValue', {
       type: 'Control',
       args: {
-        id: nonNull(intArg()),
+        id: nonNull(stringArg()),
         value: nullable(floatArg()),
       },
 

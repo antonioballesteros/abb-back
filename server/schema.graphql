@@ -26,10 +26,10 @@ type Feature {
 }
 
 type Mutation {
-  addControl(dev1: Float!, dev2: Float!, featureId: Int!, name: String!, nominal: Float!, order: Int!): Control!
-  addFeature(height: Int!, name: String!, partId: Int!, width: Int!): Feature!
+  addControl(dev1: Float!, dev2: Float!, featureId: String!, name: String!, nominal: Float!, order: Int!): Control!
+  addFeature(height: Int!, name: String!, partId: String!, width: Int!): Feature!
   addPart(name: String!): Part!
-  addValue(id: Int!, value: Float): Control!
+  addValue(id: String!, value: Float): Control!
 }
 
 type Part {
