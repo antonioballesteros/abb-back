@@ -15,9 +15,10 @@ model Control {
   nominal   Float
   dev1      Float
   dev2      Float
-  lasts     String   @default("[]")
+  lasts     String    @default("[]")
   value     Float?
-  feature   Feature  @relation(name: "Feature", fields: [featureId], references: [id])
+  quality   String? 
+  feature   Feature   @relation(name: "Feature", fields: [featureId], references: [id])
   featureId String
 }
 
@@ -25,6 +26,7 @@ model Feature {
   id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   name      String
+  quality   String? 
   layout    Layout    @relation(name: "Layout", fields: [layoutId], references: [id])
   layoutId  String
   controls  Control[] @relation(name: "Feature")

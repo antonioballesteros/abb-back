@@ -8,7 +8,7 @@ import {
   floatArg
 } from 'nexus'
 
-import { updateLast } from './utils'
+import { updateLast, getQuality, getWorstQuality } from './utils'
 
 export const Control = objectType({
   name: 'Control',
@@ -21,6 +21,7 @@ export const Control = objectType({
     t.nonNull.float('dev2')
     t.nullable.float('value')
     t.nullable.string('lasts')
+    t.nullable.string('quality')
 
     t.id('featureId')
     t.field('feature', {
@@ -88,13 +89,13 @@ export const ValueMutation = extendType({
       },
 
       async resolve (_, args, context) {
-        console.log('args', args)
         const control = await context.prisma.control.findUnique({
           where: { id: args.id }
         })
 
         const newValue = args.value ?? null
         const newLasts = updateLast(control?.lasts || '[]', newValue)
+        const quality = getQuality(control, newValue)
 
         const newControl = await context.prisma.control.update({
           where: {
@@ -102,9 +103,31 @@ export const ValueMutation = extendType({
           },
           data: {
             value: newValue,
-            lasts: newLasts
+            lasts: newLasts,
+            quality
           }
         })
+
+        const feature = await context.prisma.feature.findUnique({
+          where: { id: control?.featureId }
+        })
+
+        const controls = await context.prisma.control.findMany({
+          where: { featureId: control?.featureId }
+        })
+
+        const newFeatureQuality = getWorstQuality(controls)
+
+        if (newFeatureQuality !== feature?.quality) {
+          await context.prisma.feature.update({
+            where: {
+              id: feature?.id
+            },
+            data: {
+              quality: newFeatureQuality
+            }
+          })
+        }
 
         return newControl
       }

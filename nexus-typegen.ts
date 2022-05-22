@@ -37,12 +37,14 @@ export interface NexusGenObjects {
     name: string; // String!
     nominal: number; // Float!
     order: number; // Int!
+    quality?: string | null; // String
     value?: number | null; // Float
   }
   Feature: { // root type
     id?: string | null; // ID
     layoutId?: string | null; // ID
     name: string; // String!
+    quality?: string | null; // String
   }
   Layout: { // root type
     id?: string | null; // ID
@@ -79,6 +81,7 @@ export interface NexusGenFieldTypes {
     name: string; // String!
     nominal: number; // Float!
     order: number; // Int!
+    quality: string | null; // String
     value: number | null; // Float
   }
   Feature: { // field return type
@@ -87,6 +90,7 @@ export interface NexusGenFieldTypes {
     layout: NexusGenRootTypes['Layout']; // Layout!
     layoutId: string | null; // ID
     name: string; // String!
+    quality: string | null; // String
   }
   Layout: { // field return type
     features: NexusGenRootTypes['Feature'][]; // [Feature!]!
@@ -128,6 +132,7 @@ export interface NexusGenFieldTypeNames {
     name: 'String'
     nominal: 'Float'
     order: 'Int'
+    quality: 'String'
     value: 'Float'
   }
   Feature: { // field return type name
@@ -136,6 +141,7 @@ export interface NexusGenFieldTypeNames {
     layout: 'Layout'
     layoutId: 'ID'
     name: 'String'
+    quality: 'String'
   }
   Layout: { // field return type name
     features: 'Feature'

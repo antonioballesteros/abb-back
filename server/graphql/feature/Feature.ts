@@ -1,10 +1,11 @@
-import { extendType, objectType, nonNull, stringArg, intArg } from 'nexus'
+import { extendType, objectType, nonNull, stringArg } from 'nexus'
 
 export const Feature = objectType({
   name: 'Feature',
   definition (t) {
     t.id('id')
     t.nonNull.string('name')
+    t.nullable.string('quality')
     t.nonNull.list.nonNull.field('controls', {
       type: 'Control',
       resolve (parent, _, context) {
