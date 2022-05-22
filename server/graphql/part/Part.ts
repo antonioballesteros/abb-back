@@ -5,22 +5,37 @@ export const Part = objectType({
   definition (t) {
     t.id('id')
     t.nonNull.string('name')
-    t.nonNull.list.nonNull.field('features', {
-      type: 'Feature',
+    t.nonNull.list.nonNull.field('layouts', {
+      type: 'Layout',
       resolve (parent, _, context) {
-        return context.prisma.feature.findMany({ where: { partId: parent.id } })
+        return context.prisma.layout.findMany({ where: { partId: parent.id } })
       }
     })
   }
 })
 
-export const PartQuery = extendType({
+export const PartsQuery = extendType({
   type: 'Query',
   definition (t) {
     t.nonNull.list.nonNull.field('parts', {
       type: 'Part',
       resolve (_, __, context) {
         return context.prisma.part.findMany()
+      }
+    })
+  }
+})
+
+export const GetPartQuery = extendType({
+  type: 'Query',
+  definition (t) {
+    t.nullable.field('getPart', {
+      type: 'Part',
+      args: {
+        id: nonNull(stringArg())
+      },
+      resolve (_, args, context) {
+        return context.prisma.part.findUnique({ where: { id: args.id } })
       }
     })
   }
@@ -36,12 +51,11 @@ export const PartMutation = extendType({
       },
 
       resolve (_, args, context) {
-        const newPart = context.prisma.part.create({
+        return context.prisma.part.create({
           data: {
             name: args.name
           }
         })
-        return newPart
       }
     })
   }

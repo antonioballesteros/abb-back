@@ -5,8 +5,6 @@ export const Feature = objectType({
   definition (t) {
     t.id('id')
     t.nonNull.string('name')
-    t.nonNull.int('width')
-    t.nonNull.int('height')
     t.nonNull.list.nonNull.field('controls', {
       type: 'Control',
       resolve (parent, _, context) {
@@ -15,13 +13,12 @@ export const Feature = objectType({
         })
       }
     })
-    t.id('partId')
-    t.nonNull.field('part', {
+    t.id('layoutId')
+    t.nonNull.field('layout', {
       // 1
-      type: 'Part',
+      type: 'Layout',
       resolve (parent, _, context) {
-        // 2
-        return context.prisma.part.findUnique({ where: { id: parent.partId } })
+        return context.prisma.layout.findUnique({ where: { id: parent.layoutId } })
       }
     })
   }
@@ -46,18 +43,14 @@ export const FeatureMutation = extendType({
       type: 'Feature',
       args: {
         name: nonNull(stringArg()),
-        width: nonNull(intArg()),
-        height: nonNull(intArg()),
-        partId: nonNull(stringArg())
+        layoutId: nonNull(stringArg())
       },
 
       resolve (parent, args, context) {
         return context.prisma.feature.create({
           data: {
             name: args.name,
-            width: args.width,
-            height: args.height,
-            part: { connect: { id: args.partId } }
+            layout: { connect: { id: args.layoutId } }
           }
         })
       }

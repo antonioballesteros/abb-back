@@ -17,29 +17,39 @@ type Control {
 
 type Feature {
   controls: [Control!]!
-  height: Int!
+  id: ID
+  layout: Layout!
+  layoutId: ID
+  name: String!
+}
+
+type Layout {
+  features: [Feature!]!
   id: ID
   name: String!
   part: Part!
   partId: ID
-  width: Int!
+  size: Int!
 }
 
 type Mutation {
   addControl(dev1: Float!, dev2: Float!, featureId: String!, name: String!, nominal: Float!, order: Int!): Control!
-  addFeature(height: Int!, name: String!, partId: String!, width: Int!): Feature!
+  addFeature(layoutId: String!, name: String!): Feature!
+  addLayout(name: String!, partId: String!, size: Int!): Layout!
   addPart(name: String!): Part!
   addValue(id: String!, value: Float): Control!
 }
 
 type Part {
-  features: [Feature!]!
   id: ID
+  layouts: [Layout!]!
   name: String!
 }
 
 type Query {
   controls: [Control!]!
   features: [Feature!]!
+  getPart(id: String!): Part
+  layouts: [Layout!]!
   parts: [Part!]!
 }

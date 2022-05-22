@@ -25,16 +25,24 @@ model Feature {
   id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   name      String
-  width     Int
-  height    Int
+  layout    Layout    @relation(name: "Layout", fields: [layoutId], references: [id])
+  layoutId  String
+  controls  Control[] @relation(name: "Feature")
+}
+
+model Layout {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  name      String
+  size      Int
   part      Part      @relation(name: "Part", fields: [partId], references: [id])
   partId    String
-  controls  Control[] @relation(name: "Feature")
+  features  Feature[] @relation(name: "Layout")
 }
 
 model Part {
   id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   name      String
-  features  Feature[] @relation(name: "Part")
+  layouts   Layout[] @relation(name: "Part")
 }

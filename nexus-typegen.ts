@@ -40,11 +40,15 @@ export interface NexusGenObjects {
     value?: number | null; // Float
   }
   Feature: { // root type
-    height: number; // Int!
+    id?: string | null; // ID
+    layoutId?: string | null; // ID
+    name: string; // String!
+  }
+  Layout: { // root type
     id?: string | null; // ID
     name: string; // String!
     partId?: string | null; // ID
-    width: number; // Int!
+    size: number; // Int!
   }
   Mutation: {};
   Part: { // root type
@@ -79,27 +83,36 @@ export interface NexusGenFieldTypes {
   }
   Feature: { // field return type
     controls: NexusGenRootTypes['Control'][]; // [Control!]!
-    height: number; // Int!
+    id: string | null; // ID
+    layout: NexusGenRootTypes['Layout']; // Layout!
+    layoutId: string | null; // ID
+    name: string; // String!
+  }
+  Layout: { // field return type
+    features: NexusGenRootTypes['Feature'][]; // [Feature!]!
     id: string | null; // ID
     name: string; // String!
     part: NexusGenRootTypes['Part']; // Part!
     partId: string | null; // ID
-    width: number; // Int!
+    size: number; // Int!
   }
   Mutation: { // field return type
     addControl: NexusGenRootTypes['Control']; // Control!
     addFeature: NexusGenRootTypes['Feature']; // Feature!
+    addLayout: NexusGenRootTypes['Layout']; // Layout!
     addPart: NexusGenRootTypes['Part']; // Part!
     addValue: NexusGenRootTypes['Control']; // Control!
   }
   Part: { // field return type
-    features: NexusGenRootTypes['Feature'][]; // [Feature!]!
     id: string | null; // ID
+    layouts: NexusGenRootTypes['Layout'][]; // [Layout!]!
     name: string; // String!
   }
   Query: { // field return type
     controls: NexusGenRootTypes['Control'][]; // [Control!]!
     features: NexusGenRootTypes['Feature'][]; // [Feature!]!
+    getPart: NexusGenRootTypes['Part'] | null; // Part
+    layouts: NexusGenRootTypes['Layout'][]; // [Layout!]!
     parts: NexusGenRootTypes['Part'][]; // [Part!]!
   }
 }
@@ -119,27 +132,36 @@ export interface NexusGenFieldTypeNames {
   }
   Feature: { // field return type name
     controls: 'Control'
-    height: 'Int'
+    id: 'ID'
+    layout: 'Layout'
+    layoutId: 'ID'
+    name: 'String'
+  }
+  Layout: { // field return type name
+    features: 'Feature'
     id: 'ID'
     name: 'String'
     part: 'Part'
     partId: 'ID'
-    width: 'Int'
+    size: 'Int'
   }
   Mutation: { // field return type name
     addControl: 'Control'
     addFeature: 'Feature'
+    addLayout: 'Layout'
     addPart: 'Part'
     addValue: 'Control'
   }
   Part: { // field return type name
-    features: 'Feature'
     id: 'ID'
+    layouts: 'Layout'
     name: 'String'
   }
   Query: { // field return type name
     controls: 'Control'
     features: 'Feature'
+    getPart: 'Part'
+    layouts: 'Layout'
     parts: 'Part'
   }
 }
@@ -155,10 +177,13 @@ export interface NexusGenArgTypes {
       order: number; // Int!
     }
     addFeature: { // args
-      height: number; // Int!
+      layoutId: string; // String!
+      name: string; // String!
+    }
+    addLayout: { // args
       name: string; // String!
       partId: string; // String!
-      width: number; // Int!
+      size: number; // Int!
     }
     addPart: { // args
       name: string; // String!
@@ -166,6 +191,11 @@ export interface NexusGenArgTypes {
     addValue: { // args
       id: string; // String!
       value?: number | null; // Float
+    }
+  }
+  Query: {
+    getPart: { // args
+      id: string; // String!
     }
   }
 }
