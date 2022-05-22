@@ -11,5 +11,6 @@ export const server = new ApolloServer({
 
 const port = 3100
 server.listen({ port }).then(({ url }) => {
+  // eslint-disable-next-line no-console
   console.log(`🚀  Server ready at ${url}`)
 })
