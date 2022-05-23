@@ -58,6 +58,7 @@ export interface NexusGenObjects {
     name: string; // String!
   }
   Query: {};
+  Subscription: {};
 }
 
 export interface NexusGenInterfaces {
@@ -119,6 +120,9 @@ export interface NexusGenFieldTypes {
     layouts: NexusGenRootTypes['Layout'][]; // [Layout!]!
     parts: NexusGenRootTypes['Part'][]; // [Part!]!
   }
+  Subscription: { // field return type
+    updatedControl: NexusGenRootTypes['Control'] | null; // Control
+  }
 }
 
 export interface NexusGenFieldTypeNames {
@@ -169,6 +173,9 @@ export interface NexusGenFieldTypeNames {
     getPart: 'Part'
     layouts: 'Layout'
     parts: 'Part'
+  }
+  Subscription: { // field return type name
+    updatedControl: 'Control'
   }
 }
 

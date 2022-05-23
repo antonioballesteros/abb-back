@@ -5,10 +5,14 @@ import {
   nullable,
   stringArg,
   intArg,
-  floatArg
+  floatArg,
+  subscriptionField
 } from 'nexus'
 
 import { updateLast, getQuality, getWorstQuality } from './utils'
+
+const { PubSub } = require('apollo-server')
+const pubsub = new PubSub()
 
 export const Control = objectType({
   name: 'Control',
@@ -129,8 +133,23 @@ export const ValueMutation = extendType({
           })
         }
 
+        pubsub.publish('updatedControl', {
+          control: newControl
+        })
+
         return newControl
       }
     })
+  }
+})
+
+export const SubscriptionField = subscriptionField('updatedControl', {
+  type: 'Control',
+  subscribe () {
+    return pubsub.asyncIterator(['updatedControl'])
+  },
+
+  resolve (eventData) {
+    return eventData.control
   }
 })

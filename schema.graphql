@@ -55,3 +55,7 @@ type Query {
   layouts: [Layout!]!
   parts: [Part!]!
 }
+
+type Subscription {
+  updatedControl: Control
+}
