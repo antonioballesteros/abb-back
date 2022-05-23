@@ -121,6 +121,7 @@ export interface NexusGenFieldTypes {
     parts: NexusGenRootTypes['Part'][]; // [Part!]!
   }
   Subscription: { // field return type
+    addedControl: NexusGenRootTypes['Control'] | null; // Control
     updatedControl: NexusGenRootTypes['Control'] | null; // Control
   }
 }
@@ -175,6 +176,7 @@ export interface NexusGenFieldTypeNames {
     parts: 'Part'
   }
   Subscription: { // field return type name
+    addedControl: 'Control'
     updatedControl: 'Control'
   }
 }

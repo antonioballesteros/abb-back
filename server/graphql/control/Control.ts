@@ -76,6 +76,11 @@ export const ControlMutation = extendType({
             feature: { connect: { id: args.featureId } }
           }
         })
+
+        pubsub.publish('addedControl', {
+          control: newControl
+        })
+
         return newControl
       }
     })
@@ -143,10 +148,21 @@ export const ValueMutation = extendType({
   }
 })
 
-export const SubscriptionField = subscriptionField('updatedControl', {
+export const SubscriptionUpdateControl = subscriptionField('updatedControl', {
   type: 'Control',
   subscribe () {
     return pubsub.asyncIterator(['updatedControl'])
+  },
+
+  resolve (eventData) {
+    return eventData.control
+  }
+})
+
+export const SubscriptionAddControl = subscriptionField('addedControl', {
+  type: 'Control',
+  subscribe () {
+    return pubsub.asyncIterator(['addedControl'])
   },
 
   resolve (eventData) {
