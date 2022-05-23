@@ -28,7 +28,7 @@ It's not the best database, I've used to do tests, but al least has something to
 
 In the project directory, you can run:
 
-### `npm run server`
+### `npm run dev`
 
 ## How to test it
 
@@ -36,6 +36,11 @@ In the project directory, you can run:
 
 
 # Graphql queries and mutations
+
+Playground can be opened from 
+
+http://localhost:3100/
+
 
 ### get all the information from all parts, without filters
 

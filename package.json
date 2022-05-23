@@ -6,7 +6,7 @@
   "scripts": {
     "tsc": "tsc",
     "init": "prisma db push",
-    "server": "ts-node-dev --transpile-only --no-notify --exit-child server/index.ts",
+    "dev": "ts-node-dev --transpile-only --no-notify --exit-child server/index.ts",
     "generate": "ts-node --transpile-only server/schema.ts",
     "lint": "eslint **/*.ts",
     "lint-fix": "eslint **/*.ts --fix",
